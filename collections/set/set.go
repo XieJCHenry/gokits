@@ -1,28 +1,25 @@
 package set
 
-import "sort"
-
-type Set interface {
-	Contains(x interface{}) bool
+type Set[T comparable] interface {
+	Contains(x T) bool
 	Size() int
 
-	InsertIfAbsent(x interface{}) bool
-	RemoveIfPresent(x interface{}) bool
-	ToArray() []interface{}
-	ToOrderedArray(cmp func(i, j int) bool) []interface{}
+	InsertIfAbsent(x T) bool
+	RemoveIfPresent(x T) bool
+	ToArray() []T
 }
 
 type set[T comparable] struct {
 	data map[T]struct{}
 }
 
-func New[T comparable]() Set {
+func New[T comparable]() Set[T] {
 	return &set[T]{
 		data: make(map[T]struct{}),
 	}
 }
 
-func NewFrom[T comparable](elems ...T) Set {
+func NewFrom[T comparable](elems ...T) Set[T] {
 	s := &set[T]{
 		data: make(map[T]struct{}),
 	}
@@ -32,7 +29,7 @@ func NewFrom[T comparable](elems ...T) Set {
 	return s
 }
 
-func (s *set[T]) Contains(x interface{}) bool {
+func (s *set[T]) Contains(x T) bool {
 	_, ok := s.data[x]
 	return ok
 }
@@ -41,7 +38,7 @@ func (s *set[T]) Size() int {
 	return len(s.data)
 }
 
-func (s *set[T]) InsertIfAbsent(x interface{}) bool {
+func (s *set[T]) InsertIfAbsent(x T) bool {
 	if _, ok := s.data[x]; !ok {
 		s.data[x] = struct{}{}
 		return true
@@ -49,7 +46,7 @@ func (s *set[T]) InsertIfAbsent(x interface{}) bool {
 	return false
 }
 
-func (s *set[T]) RemoveIfPresent(x interface{}) bool {
+func (s *set[T]) RemoveIfPresent(x T) bool {
 	if _, ok := s.data[x]; ok {
 		delete(s.data, x)
 		return true
@@ -57,16 +54,10 @@ func (s *set[T]) RemoveIfPresent(x interface{}) bool {
 	return false
 }
 
-func (s *set[T]) ToArray() []interface{} {
-	result := make([]interface{}, 0, s.Size())
+func (s *set[T]) ToArray() []T {
+	result := make([]T, 0, s.Size())
 	for x := range s.data {
 		result = append(result, x)
 	}
-	return result
-}
-
-func (s *set[T]) ToOrderedArray(cmp func(i, j int) bool) []interface{} {
-	result := s.ToArray()
-	sort.Slice(result, cmp)
 	return result
 }
