@@ -1,8 +1,8 @@
 package arrays
 
 import (
-	"gokits/collections/set"
-	"gokits/collections/tuple"
+	"github.com/XieJCHenry/gokits/collections/set"
+	"github.com/XieJCHenry/gokits/collections/tuple"
 	"math"
 )
 
@@ -38,7 +38,7 @@ func RemoveAt(arr []interface{}, index int) ([]interface{}, interface{}) {
 	return arr, x
 }
 
-func ToSet[T comparable](arr []T) set.Set {
+func ToSet[T comparable](arr []T) set.Set[T] {
 	return set.NewFrom[T](arr...)
 }
 
