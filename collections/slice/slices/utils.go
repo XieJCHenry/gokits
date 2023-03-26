@@ -1,4 +1,5 @@
-package arrays
+// Package slices contains some helper functions for built-in slice
+package slices
 
 import (
 	"github.com/XieJCHenry/gokits/collections/set"
