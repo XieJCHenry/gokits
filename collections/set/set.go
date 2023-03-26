@@ -7,6 +7,7 @@ type Set[T comparable] interface {
 	InsertIfAbsent(x T) bool
 	RemoveIfPresent(x T) bool
 	ToArray() []T
+	ToBuiltIn() map[T]struct{}
 }
 
 type set[T comparable] struct {
@@ -60,4 +61,12 @@ func (s *set[T]) ToArray() []T {
 		result = append(result, x)
 	}
 	return result
+}
+
+func (s *set[T]) ToBuiltIn() map[T]struct{} {
+	result := make(map[T]struct{})
+	for x := range s.data {
+		result[x] = struct{}{}
+	}
+	return s.data
 }
