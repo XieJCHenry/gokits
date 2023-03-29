@@ -4,6 +4,8 @@ package gmap
 type Map[KEY comparable, VALUE any] interface {
 	Contains(key KEY) bool
 	Put(key KEY, value VALUE)
+	Get(key KEY) VALUE
+	GetOrDefault(key KEY, defaultValue VALUE) VALUE
 	Delete(key KEY) VALUE
 	PutIfAbsent(key KEY, value VALUE) bool
 	DeleteIfPresent(key KEY) (VALUE, bool)
@@ -31,6 +33,19 @@ func (m *gmap[KEY, VALUE]) Contains(key KEY) bool {
 
 func (m *gmap[KEY, VALUE]) Put(key KEY, value VALUE) {
 	m.data[key] = value
+}
+
+func (m *gmap[KEY, VALUE]) Get(key KEY) VALUE {
+	return m.data[key]
+}
+
+func (m *gmap[KEY, VALUE]) GetOrDefault(key KEY, defaultValue VALUE) VALUE {
+	var val VALUE
+	var ok bool
+	if val, ok = m.data[key]; !ok {
+		val = defaultValue
+	}
+	return val
 }
 
 func (m *gmap[KEY, VALUE]) Delete(key KEY) VALUE {
