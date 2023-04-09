@@ -1,5 +1,7 @@
 package slice
 
+import "github.com/google/go-cmp/cmp"
+
 // todo 包装一层slice，提供filter等方法，map和set也要加
 
 type Slice[T comparable] interface {
@@ -53,7 +55,7 @@ func (s *slice[T]) Contains(x T) bool {
 
 func (s *slice[T]) IndexOf(x T) int {
 	for index := range s.data {
-		if s.data[index] == x {
+		if cmp.Equal(s.data[index], x) {
 			return index
 		}
 	}
