@@ -4,6 +4,7 @@ package slices
 import (
 	"github.com/XieJCHenry/gokits/collections/set"
 	"github.com/XieJCHenry/gokits/collections/tuple"
+	"github.com/google/go-cmp/cmp"
 	"math"
 )
 
@@ -14,7 +15,7 @@ func Contains(arr []interface{}, x interface{}) bool {
 func IndexOf(arr []interface{}, x interface{}) int {
 	idx := -1
 	for i := range arr {
-		if arr[i] == x {
+		if cmp.Equal(arr[i], x) {
 			idx = i
 			break
 		}

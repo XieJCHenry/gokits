@@ -2,8 +2,6 @@ package slice
 
 import "github.com/google/go-cmp/cmp"
 
-// todo 包装一层slice，提供filter等方法，map和set也要加
-
 type Slice[T comparable] interface {
 	At(index int) T
 	Append(x T)
@@ -91,9 +89,7 @@ func (s *slice[T]) RemoveAt(index int) (val T) {
 
 func (s *slice[T]) RemoveIfPresent(x T) bool {
 	index := s.IndexOf(x)
-	if index != -1 {
-		s.RemoveAt(index)
-	}
+	s.RemoveAt(index)
 	return index != -1
 }
 

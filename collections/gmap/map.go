@@ -50,7 +50,7 @@ func (m *gmap[KEY, VALUE]) PutIfAbsent(key KEY, value VALUE) bool {
 func (m *gmap[KEY, VALUE]) DeleteIfPresent(key KEY) (val VALUE, has bool) {
 	has = false
 	if _, ok := m.data[key]; ok {
-		val = m.data[key]
+		val = m.Delete(key)
 		has = true
 	}
 	return
