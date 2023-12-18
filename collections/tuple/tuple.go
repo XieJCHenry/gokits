@@ -20,7 +20,7 @@ func New(size int) Tuple {
 	return t
 }
 
-func NewFrom(elems []any) Tuple {
+func NewFrom(elems ...any) Tuple {
 	size := len(elems)
 	t := New(size)
 	t.SetElements(elems)

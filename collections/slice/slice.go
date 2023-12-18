@@ -2,8 +2,6 @@ package slice
 
 import "github.com/google/go-cmp/cmp"
 
-// todo 包装一层slice，提供filter等方法，map和set也要加
-
 type Slice[T comparable] interface {
 	At(index int) T
 	Append(x T)

@@ -31,7 +31,7 @@ func Test_Set_InsertAndRemove(t *testing.T) {
 		t.Fatalf("set is empty, has no element")
 	}
 
-	ret = s.InsertIfAbsent(4)
+	ret = s.PutIfAbsent(4)
 	if !ret {
 		t.Fatalf("set is empty, insert element must return true")
 	}

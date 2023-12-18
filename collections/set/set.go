@@ -4,7 +4,9 @@ type Set[T comparable] interface {
 	Contains(x T) bool
 	Size() int
 
-	InsertIfAbsent(x T) bool
+	Put(x T)
+	PutIfAbsent(x T) bool
+	Remove(x T)
 	RemoveIfPresent(x T) bool
 	ToArray() []T
 	ToBuiltIn() map[T]struct{}
@@ -39,12 +41,20 @@ func (s *set[T]) Size() int {
 	return len(s.data)
 }
 
-func (s *set[T]) InsertIfAbsent(x T) bool {
-	if _, ok := s.data[x]; !ok {
+func (s *set[T]) Put(x T) {
+	s.data[x] = struct{}{}
+}
+
+func (s *set[T]) PutIfAbsent(x T) bool {
+	var ok bool
+	if _, ok = s.data[x]; !ok {
 		s.data[x] = struct{}{}
-		return true
 	}
-	return false
+	return ok
+}
+
+func (s *set[T]) Remove(x T) {
+	delete(s.data, x)
 }
 
 func (s *set[T]) RemoveIfPresent(x T) bool {
