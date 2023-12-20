@@ -14,6 +14,7 @@ type Map[KEY comparable, VALUE any] interface {
 	Size() int
 
 	ToBuiltIn() map[KEY]VALUE
+	ForEach(each func(key KEY, val VALUE, result any), result any)
 }
 
 type gmap[KEY comparable, VALUE any] struct {
@@ -95,4 +96,10 @@ func (m *gmap[KEY, VALUE]) ToBuiltIn() map[KEY]VALUE {
 		result[k] = v
 	}
 	return result
+}
+
+func (m *gmap[KEY, VALUE]) ForEach(each func(key KEY, val VALUE, result any), result any) {
+	for k, v := range m.data {
+		each(k, v, result)
+	}
 }

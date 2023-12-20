@@ -16,6 +16,7 @@ type Slice[T comparable] interface {
 
 	ToBuiltIn() []T
 	Filter(filter func(x T) bool) Slice[T]
+	ForEach(each func(index int, x T, result any), result any)
 }
 
 type slice[T comparable] struct {
@@ -113,4 +114,10 @@ func (s *slice[T]) ToBuiltIn() []T {
 	result := make([]T, s.Size())
 	copy(result, s.data)
 	return result
+}
+
+func (s *slice[T]) ForEach(each func(index int, x T, result any), result any) {
+	for i, val := range s.data {
+		each(i, val, result)
+	}
 }
