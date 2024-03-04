@@ -7,6 +7,15 @@ import (
 	"math"
 )
 
+func ContainsV2[T comparable](arr []T, x T) bool {
+	for _, e := range arr {
+		if e == x {
+			return true
+		}
+	}
+	return false
+}
+
 func Contains(arr []interface{}, x interface{}) bool {
 	return IndexOf(arr, x) != -1
 }
