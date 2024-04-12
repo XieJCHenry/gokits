@@ -63,3 +63,16 @@ func NewFromKeyValues[KEY comparable, VALUE any](keys []KEY, values []VALUE) map
 	}
 	return result
 }
+
+func NewFromSlice[T any, U comparable, V any](data []T, convertFunc func(d T) (U, V)) map[U]V {
+	result := make(map[U]V)
+	if len(data) > 0 {
+		for i := range data {
+			d := data[i]
+			key, val := convertFunc(d)
+			result[key] = val
+		}
+	}
+
+	return result
+}
