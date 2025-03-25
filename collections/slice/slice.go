@@ -29,6 +29,14 @@ func New[T comparable]() Slice[T] {
 	}
 }
 
+func NewFrom[T comparable](vals ...T) Slice[T] {
+	s := New[T]()
+	for i := range vals {
+		s.Append(vals[i])
+	}
+	return s
+}
+
 func (s *slice[T]) At(index int) (val T) {
 	if index >= 0 && index < len(s.data) {
 		val = s.data[index]
