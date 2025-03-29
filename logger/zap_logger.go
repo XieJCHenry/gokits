@@ -9,7 +9,7 @@ type Logger struct {
 }
 
 func NewLogger(options ...zap.Option) *Logger {
-	slg, _ := zap.NewProduction(options...)
+	slg, _ := zap.NewDevelopment(options...)
 
 	return &Logger{
 		slg: slg,
